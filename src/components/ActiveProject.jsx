@@ -91,7 +91,7 @@ export default function ActiveProject({
             alt=""
           />
         </h1>
-        <ul className={`m-2 max-h-52 ${savedTasks.length < 5 ? `overflow-y-hidden` : `overflow-y-auto`} overflow-x-hidden transition-all duration-200`} style={{
+        <ul className={`m-2 max-h-52 ${taskListSize < 208 ? `overflow-y-hidden` : `overflow-y-auto`} overflow-x-hidden transition-all duration-200`} style={{
           height: `${taskListSize}px`
         }}>
           {savedTasks.length === 0 && <h1>You have not added any tasks...</h1>}
