@@ -1,5 +1,4 @@
-import {useRef, useState} from "react";
-import Button from "./UI/Button.jsx";
+import { useRef, useState } from "react";
 
 export default function SideMenu({
   projects,
@@ -8,7 +7,7 @@ export default function SideMenu({
 }) {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   let hasCheckWindowInStart = useRef(false);
-
+  const listHeight =  3.75 * projects.length;
   const checkWindowSize = () => {
     if (window.innerWidth > 1280 && !sideBarOpen) {
       setSideBarOpen(true);
@@ -18,12 +17,11 @@ export default function SideMenu({
   };
   window.addEventListener("resize", checkWindowSize);
   if (!hasCheckWindowInStart.current) {
-      hasCheckWindowInStart.current = true;
+    hasCheckWindowInStart.current = true;
     checkWindowSize();
   }
 
   const changeSideBarState = () => {
-
     if (window.innerWidth < 1280) {
       setSideBarOpen((prevValue) => !prevValue);
     }
@@ -53,7 +51,7 @@ export default function SideMenu({
         onClick={changeSideBarState}
       />
       <section
-        className={`bg-gradient-to-b from-[#19454B] to-[#00B9D2] w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl text-white duration-300 transition-all overflow-auto ${
+        className={`bg-gradient-to-b from-[#19454B] to-[#00B9D2] w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl text-white duration-300 transition-all overflow-y-auto overflow-x-hidden ${
           sideBarOpen ? "" : "translate-x-[-100%]"
         }`}
       >
@@ -65,7 +63,12 @@ export default function SideMenu({
             alt=""
           />
         </h1>
-        <ul className="flex flex-col gap-3 mt-3 bg-black">
+        <ul
+          className={`mt-3 transition-all duration-200`}
+          style={{
+            height: `${listHeight}rem`,
+          }}
+        >
           {projects.map((project, index) => (
             <li
               onClick={() => {
@@ -73,7 +76,7 @@ export default function SideMenu({
                 onProjectClick(index);
               }}
               key={index}
-              className="font-medium cursor-pointer text-md rounded-3xl border border-white w-fit p-3 shadow hover:bg-white hover:text-black transition-colors duration-[0.200s]"
+              className="font-medium cursor-pointer text-md rounded-3xl border border-white grid place-items-center p-3 mt-2 w-fit max-w-[16rem] overflow-hidden shadow hover:bg-white hover:text-black transition-colors duration-[0.200s] opacity-0 animate-opacityWithDelay"
             >
               {project.name}
             </li>
@@ -84,10 +87,11 @@ export default function SideMenu({
             changeSideBarState();
             onProjectCreateClick(-1);
           }}
-
-          className={'text-black bg-white w-36 h-12 rounded-3xl shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer font-medium mt-3'}
+          className={
+            "text-black bg-white w-36 h-12 rounded-3xl shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer font-medium mt-3"
+          }
         >
-            Create Project
+          Create Project
         </button>
       </section>
     </>

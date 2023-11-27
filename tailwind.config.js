@@ -11,6 +11,7 @@ export default {
         topMoveDown: 'moveSelfAmount 0.25s',
         bottomMoveUp: 'moveScreenAmount 0.25s',
         opacity: 'opacity 0.25s',
+        opacityWithDelay: 'opacity 0.25s 0.2s forwards',
         fadeIn: `fadeIn 0.25s`
       },
       keyframes: {

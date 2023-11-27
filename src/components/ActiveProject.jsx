@@ -14,7 +14,7 @@ export default function ActiveProject({
   const [hasDeletedProject, setHasDeletedProject] = useState(false);
   const taskInput = useRef();
   const modal = useRef();
-
+  const taskListSize = savedTasks.length > 0 ? savedTasks.length * 32 : 32
   const addTask = () => {
     if (taskInput.current.value.length < 1) {
       setIsInputEmpty(true);
@@ -36,7 +36,7 @@ export default function ActiveProject({
   return (
     <>
       <section
-        className={`max-w-screen-sm w-screen bg-white ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-[0.25s] transition-all ${
+        className={`max-w-screen-sm w-screen bg-white ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-[0.25s] transition-all overflow-hidden ${
           hasDeletedProject || hasLeftProject ? "-translate-y-full" : ""
         }`}
       >
@@ -74,7 +74,7 @@ export default function ActiveProject({
           type="text"
           placeholder={`Insert task name`}
         />
-        <Button onClick={addTask} className="rounded-3xl p-1">
+        <Button onClick={addTask} className="rounded-3xl">
           <p>Create Task</p>
         </Button>
       </div>
@@ -91,14 +91,16 @@ export default function ActiveProject({
             alt=""
           />
         </h1>
-        <ul className={`p-2 max-h-52 overflow-y-auto overflow-x-hidden `}>
+        <ul className={`m-2 max-h-52 ${savedTasks.length < 5 ? `overflow-y-hidden` : `overflow-y-auto`} overflow-x-hidden transition-all duration-200`} style={{
+          height: `${taskListSize}px`
+        }}>
           {savedTasks.length === 0 && <h1>You have not added any tasks...</h1>}
           {savedTasks.map((task, index) => (
-            <li className={"relative animate-opacity mt-2"} key={index}>
-              {task}{" "}
+            <li className={"relative opacity-0 animate-opacityWithDelay mt-2 flex flex-row justify-between"} key={index}>
+              <span className={'overflow-hidden'}>{task}</span>
               <span
                 onClick={() => onRemoveTask(index)}
-                className="w-[20px] me-4 cursor-pointer inline absolute right-0 font-bold"
+                className="cursor-pointer font-bold"
               >
                 Clear
               </span>

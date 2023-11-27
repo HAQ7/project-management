@@ -68,7 +68,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
         ref={description}
       />
       <input
-        className={`bg-gray-200 outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
+        className={`bg-gray-200 outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow cursor-pointer ${
           requiresInput.includes("DATE")
             ? `border border-red-700 animate-shake`
             : ""
