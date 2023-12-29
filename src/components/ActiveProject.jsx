@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import {useContext, useRef, useState} from "react";
 import Modal from "./Modal.jsx";
 import Button from "./UI/Button.jsx";
+import {ThemeContext} from "./store/ThemeContext.jsx";
 
 export default function ActiveProject({
   project,
@@ -36,7 +37,7 @@ export default function ActiveProject({
   return (
     <>
       <section
-        className={`max-w-screen-sm w-screen bg-white ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-[0.25s] transition-all overflow-hidden ${
+        className={`max-w-screen-sm w-screen ${useContext(ThemeContext) == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-[0.25s] transition-all overflow-hidden ${
           hasDeletedProject || hasLeftProject ? "-translate-y-full" : ""
         }`}
       >
@@ -54,7 +55,7 @@ export default function ActiveProject({
           {name}{" "}
           <img
             className={`w-[20px] inline`}
-            src="./src/assets/project.svg"
+            src={`src/assets/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`}
             alt=""
           />
         </h1>
@@ -62,13 +63,13 @@ export default function ActiveProject({
         <p className={`font-medium`}>{description}</p>
       </section>
       <div
-        className={`max-w-screen-sm w-screen shadow rounded-3xl bg-white p-2 gap-1 flex justify-between animate-bottomMoveUp duration-[0.25s] transition-all ${
+        className={`max-w-screen-sm w-screen shadow rounded-3xl ${useContext(ThemeContext) == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } p-2 gap-1 flex justify-between animate-bottomMoveUp duration-[0.25s] transition-all ${
           hasDeletedProject || hasLeftProject ? "translate-y-[100vh]" : ""
         }`}
       >
         <input
           ref={taskInput}
-          className={`bg-gray-200 outline-0 h-14 w-full max-w-sm rounded-3xl p-2 shadow-3xl ${
+          className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] " } outline-0 h-14 w-full max-w-sm rounded-3xl p-2 shadow-3xl ${
             isInputEmpty ? `border border-red-700 animate-shake` : ""
           }`}
           type="text"
@@ -79,7 +80,7 @@ export default function ActiveProject({
         </Button>
       </div>
       <section
-        className={`max-w-screen-sm  w-screen shadow rounded-3xl bg-white p-5 animate-bottomMoveUp duration-[0.25s] transition-all ${
+        className={`max-w-screen-sm  w-screen shadow rounded-3xl ${useContext(ThemeContext) == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } p-5 animate-bottomMoveUp duration-[0.25s] transition-all ${
           hasDeletedProject || hasLeftProject ? "translate-y-[100vh]" : ""
         }`}
       >
@@ -87,7 +88,7 @@ export default function ActiveProject({
           Tasks{" "}
           <img
             className={`w-[20px] inline`}
-            src="./src/assets/list.svg"
+            src={`src/assets/${useContext(ThemeContext) == 'light' ? "list.svg" : "list-white.svg" }`}
             alt=""
           />
         </h1>
@@ -96,7 +97,7 @@ export default function ActiveProject({
         }}>
           {savedTasks.length === 0 && <h1>You have not added any tasks...</h1>}
           {savedTasks.map((task, index) => (
-            <li className={"relative opacity-0 animate-opacityWithDelay mt-2 flex flex-row justify-between"} key={index}>
+            <li className={`relative opacity-0 animate-opacityWithDelay mt-2 flex flex-row justify-between`} key={index}>
               <span className={'overflow-hidden'}>{task}</span>
               <span
                 onClick={() => onRemoveTask(index)}

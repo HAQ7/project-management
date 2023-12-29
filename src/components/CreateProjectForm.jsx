@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import {useContext, useRef, useState} from "react";
 import Button from "./UI/Button.jsx";
+import {ThemeContext} from "./store/ThemeContext.jsx";
 
 export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
   const [requiresInput, setRequiresInput] = useState([]);
@@ -40,16 +41,16 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
   return (
     <form
       ref={form}
-      className={`max-w-screen-sm bg-white w-screen pt-[60px] pb-5 ps-5 pe-5 rounded-b-3xl shadow flex flex-col justify-center items-center gap-3 animate-topMoveDown duration-[0.25s]  transition-all ${
+      className={`max-w-screen-sm ${useContext(ThemeContext) == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } w-screen pt-[60px] pb-5 ps-5 pe-5 rounded-b-3xl shadow flex flex-col justify-center items-center gap-3 animate-topMoveDown duration-[0.25s]  transition-all ${
         hasCreatedProject || hasLeftProject ? "-translate-y-full" : ""
       }`}
     >
       <h1 className={`font-bold text-4xl`}>
         Create Project{" "}
-        <img className={`w-[20px] inline`} src="./src/assets/svg" alt="" />
+        <img className={`w-[20px] inline`} src={`src/assets/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`} alt="" />
       </h1>
       <input
-        className={`bg-gray-200 outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] " }  outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
           requiresInput.includes("NAME")
             ? `border border-red-700 animate-shake`
             : ""
@@ -59,7 +60,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
         ref={name}
       />
       <textarea
-        className={`bg-gray-200 outline-0 w-full h-24 max-w-sm rounded-3xl p-2 m-1 resize-none shadow ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full h-24 max-w-sm rounded-3xl p-2 m-1 resize-none shadow ${
           requiresInput.includes("DESCRIPTION")
             ? `border border-red-700 animate-shake`
             : ""
@@ -68,7 +69,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
         ref={description}
       />
       <input
-        className={`bg-gray-200 outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow cursor-pointer ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow cursor-pointer ${
           requiresInput.includes("DATE")
             ? `border border-red-700 animate-shake`
             : ""

@@ -1,13 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import SideMenu from "./components/SideMenu.jsx";
 import ActiveProject from "./components/ActiveProject.jsx";
 import CreateProjectForm from "./components/CreateProjectForm.jsx";
 import Button from "./components/UI/Button.jsx";
+import {ThemeContext} from "./components/store/ThemeContext.jsx";
+import Light from "./components/UI/Light.jsx";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState(0);
   const [hasGoneToCreate, setHasGoneToCreate] = useState(false);
+  const [theme, setTheme] = useState('light')
 
   const projectCreateHandler = (project) => {
     setProjects((prevProjects) => {
@@ -15,6 +18,7 @@ function App() {
       return [...prevProjects, project];
     });
   };
+  console.log(theme)
 
   const projectRemoveHandler = () => {
     projects.splice(activeProject, 1);
@@ -45,11 +49,15 @@ function App() {
   };
 
   return (
-    <>
+    <ThemeContext.Provider value={theme}>
+      <section className={`${theme == 'light' ? "bg-[#dddddd]" : "bg-[#181F25]" }  w-screen h-screen transition`}>
       <SideMenu
         projects={projects}
         onProjectClick={changeActiveProject}
         onProjectCreateClick={changeActiveProject}
+        onChangeTheme={() => {setTheme(() =>
+          theme == 'light' ? 'dark' : 'light'
+        )}}
 
       />
       <section className="flex flex-col justify-center items-center gap-3">
@@ -64,8 +72,9 @@ function App() {
             hasLeftProject={hasGoneToCreate}
           />
         ) : (
+          //   #202731
           <h1
-            className={`font-bold mt-32 text-center bg-white shadow rounded-3xl p-2 grid place-items-center animate-bottomMoveUp duration-[0.25s] transition-all ${
+            className={`font-bold mt-32 text-center ${theme == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" }  shadow rounded-3xl p-2 grid place-items-center animate-bottomMoveUp duration-[0.25s] transition-all ${
               hasGoneToCreate ? "translate-y-[100vh]" : ""
             }`}
           >
@@ -79,7 +88,8 @@ function App() {
           </h1>
         )}
       </section>
-    </>
+      </section>
+    </ThemeContext.Provider>
   );
 }
 

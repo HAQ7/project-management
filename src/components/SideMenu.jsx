@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import {useContext, useRef, useState} from "react";
+import Light from "./UI/Light.jsx";
+import {ThemeContext} from "./store/ThemeContext.jsx";
 
 export default function SideMenu({
   projects,
   onProjectClick,
   onProjectCreateClick,
+    onChangeTheme
 }) {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   let hasCheckWindowInStart = useRef(false);
@@ -35,23 +38,24 @@ export default function SideMenu({
         }`}
       />
       <img
-        className={`w-[60px] cursor-pointer absolute top-0 left-0 text-white transition-all z-30 xl:hidden block ${
+        className={`w-[60px] cursor-pointer absolute top-0 left-0 transition-all z-30 xl:hidden block ${
           !sideBarOpen ? "opacity-0" : ""
         }`}
-        src="./src/assets/menu-x.svg"
+        src="src/assets/menu-x.svg"
         alt=""
         onClick={changeSideBarState}
       />
       <img
-        className={`w-[60px] cursor-pointer absolute top-0 left-0 text-white transition-all z-30 xl:hidden block ${
+        className={`w-[60px] cursor-pointer absolute top-0 left-0 transition-all z-30 xl:hidden block ${
           sideBarOpen ? "opacity-0" : ""
         }`}
-        src="./src/assets/menu-bars.svg"
+        src={`src/assets/${useContext(ThemeContext) == 'light' ? "menu-bars-black.svg" : "menu-bars-white.svg" }`}
         alt=""
         onClick={changeSideBarState}
       />
+      {/*/!*#19454B #00B9D2 ${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} */}
       <section
-        className={`bg-gradient-to-b from-[#19454B] to-[#00B9D2] w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl text-white duration-300 transition-all overflow-y-auto overflow-x-hidden ${
+        className={`bg-gradient-to-b ${useContext(ThemeContext) == 'light' ? "from-[#19454B] to-[#00B9D2]" : "from-[#202731] to-[#181F25] " } w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl text-white duration-300 transition-all overflow-y-auto overflow-x-hidden ${
           sideBarOpen ? "" : "translate-x-[-100%]"
         }`}
       >
@@ -59,7 +63,7 @@ export default function SideMenu({
           Projects{" "}
           <img
             className={`w-[20px] inline`}
-            src="./src/assets/projectWhite.svg"
+            src="src/assets/project-white.svg"
             alt=""
           />
         </h1>
@@ -76,7 +80,7 @@ export default function SideMenu({
                 onProjectClick(index);
               }}
               key={index}
-              className="font-medium cursor-pointer text-md rounded-3xl border border-white grid place-items-center p-3 mt-2 w-fit max-w-[16rem] overflow-hidden shadow hover:bg-white hover:text-black transition-colors duration-[0.200s] opacity-0 animate-opacityWithDelay"
+              className={`font-medium cursor-pointer text-md rounded-3xl  grid place-items-center p-3 mt-2 w-fit max-w-[16rem] overflow-hidden shadow border border-white hover:bg-white hover:text-black  transition-colors duration-[0.200s] opacity-0 animate-opacityWithDelay`}
             >
               {project.name}
             </li>
@@ -88,12 +92,13 @@ export default function SideMenu({
             onProjectCreateClick(-1);
           }}
           className={
-            "text-black bg-white w-36 h-12 rounded-3xl shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer font-medium mt-3"
+            `bg-[#38A7B6] w-36 h-12 rounded-3xl shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer font-medium mt-3`
           }
         >
           Create Project
         </button>
       </section>
+        <Light onLightClick={onChangeTheme} isSideBarOpen={sideBarOpen}/>
     </>
   );
 }
