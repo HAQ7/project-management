@@ -4,7 +4,7 @@ import ActiveProject from "./components/ActiveProject.jsx";
 import CreateProjectForm from "./components/CreateProjectForm.jsx";
 import Button from "./components/UI/Button.jsx";
 import {ThemeContext} from "./components/store/ThemeContext.jsx";
-import Light from "./components/UI/Light.jsx";
+
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -18,7 +18,6 @@ function App() {
       return [...prevProjects, project];
     });
   };
-  console.log(theme)
 
   const projectRemoveHandler = () => {
     projects.splice(activeProject, 1);

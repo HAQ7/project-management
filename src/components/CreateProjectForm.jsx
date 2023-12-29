@@ -47,10 +47,10 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
     >
       <h1 className={`font-bold text-4xl`}>
         Create Project{" "}
-        <img className={`w-[20px] inline`} src={`src/assets/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`} alt="" />
+        <img className={`w-[20px] inline`} src={`/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`} alt="" />
       </h1>
       <input
-        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] " }  outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] " }  outline-0 transition duration-300 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
           requiresInput.includes("NAME")
             ? `border border-red-700 animate-shake`
             : ""
@@ -60,7 +60,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
         ref={name}
       />
       <textarea
-        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full h-24 max-w-sm rounded-3xl p-2 m-1 resize-none shadow ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full h-24 transition-all duration-300 max-w-sm rounded-3xl p-2 m-1 resize-none shadow ${
           requiresInput.includes("DESCRIPTION")
             ? `border border-red-700 animate-shake`
             : ""
@@ -69,7 +69,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
         ref={description}
       />
       <input
-        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full max-w-sm rounded-3xl p-2 m-1 shadow cursor-pointer ${
+        className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} outline-0 w-full max-w-sm transition duration-300 rounded-3xl p-2 m-1 shadow cursor-pointer ${
           requiresInput.includes("DATE")
             ? `border border-red-700 animate-shake`
             : ""
