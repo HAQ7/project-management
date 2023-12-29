@@ -55,7 +55,7 @@ export default function ActiveProject({
           {name}{" "}
           <img
             className={`w-[20px] inline`}
-            src={`/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`}
+            src={`./${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`}
             alt=""
           />
         </h1>
@@ -88,7 +88,7 @@ export default function ActiveProject({
           Tasks{" "}
           <img
             className={`w-[20px] inline`}
-            src={`/${useContext(ThemeContext) == 'light' ? "list.svg" : "list-white.svg" }`}
+            src={`./${useContext(ThemeContext) == 'light' ? "list.svg" : "list-white.svg" }`}
             alt=""
           />
         </h1>

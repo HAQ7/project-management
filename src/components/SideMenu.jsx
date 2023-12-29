@@ -41,7 +41,7 @@ export default function SideMenu({
         className={`w-[60px] cursor-pointer absolute top-0 left-0 transition-all z-30 xl:hidden block ${
           !sideBarOpen ? "opacity-0" : ""
         }`}
-        src="/menu-x.svg"
+        src="./menu-x.svg"
         alt=""
         onClick={changeSideBarState}
       />
@@ -49,7 +49,7 @@ export default function SideMenu({
         className={`w-[60px] cursor-pointer absolute top-0 left-0 transition-all z-30 xl:hidden block ${
           sideBarOpen ? "opacity-0" : ""
         }`}
-        src={`/${useContext(ThemeContext) == 'light' ? "menu-bars-black.svg" : "menu-bars-white.svg" }`}
+        src={`./${useContext(ThemeContext) == 'light' ? "menu-bars-black.svg" : "menu-bars-white.svg" }`}
         alt=""
         onClick={changeSideBarState}
       />
@@ -63,7 +63,7 @@ export default function SideMenu({
           Projects{" "}
           <img
             className={`w-[20px] inline`}
-            src="/project-white.svg"
+            src="./project-white.svg"
             alt=""
           />
         </h1>

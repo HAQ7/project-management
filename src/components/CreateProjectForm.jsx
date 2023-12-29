@@ -47,7 +47,7 @@ export default function CreateProjectForm({ onProjectCreate, hasLeftProject }) {
     >
       <h1 className={`font-bold text-4xl`}>
         Create Project{" "}
-        <img className={`w-[20px] inline`} src={`/${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`} alt="" />
+        <img className={`w-[20px] inline`} src={`./${useContext(ThemeContext) == 'light' ? "project.svg" : "project-white.svg" }`} alt="" />
       </h1>
       <input
         className={`${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] " }  outline-0 transition duration-300 w-full max-w-sm rounded-3xl p-2 m-1 shadow ${
