@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState, useContext } from "react";
 import Button from "./UI/Button.jsx";
-import {ThemeContext} from "./store/ThemeContext.jsx";
+import {ThemeContext} from "../store/ThemeContext.jsx";
 const Modal = forwardRef(function Modal({ onConfirmDelete }, ref) {
   const [hasConfirmedDeletion, setHasConfirmedDeletion] = useState(false);
   const modal = useRef();
@@ -24,7 +24,7 @@ const Modal = forwardRef(function Modal({ onConfirmDelete }, ref) {
   return (
     <dialog
       ref={modal}
-      className={`${useContext(ThemeContext) == 'light' ? "bg-white text-black" : "bg-[#181F25] text-white" } rounded-3xl p-5 animate-fadeIn duration-[0.300s] transition-all shadow ${
+      className={`${useContext(ThemeContext).theme == 'light' ? "bg-white text-black" : "bg-[#181F25] text-white" } rounded-3xl p-5 animate-fadeIn duration-[0.300s] transition-all shadow ${
         hasConfirmedDeletion ? "opacity-0" : ""
       }`}
     >

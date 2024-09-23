@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SideMenu from "./components/SideMenu.jsx";
 import ActiveProject from "./components/ActiveProject.jsx";
 import CreateProjectForm from "./components/CreateProjectForm.jsx";
 import Button from "./components/UI/Button.jsx";
-import { ThemeContext } from "./components/store/ThemeContext.jsx";
+import { ThemeContextProvider, ThemeContext } from "./store/ThemeContext.jsx";
+import { Background } from "./components/UI/background.jsx";
+import { EmptyProject } from "./components/emptyProject.jsx";
 
 const getProjectsLocal = key => {
     const data =
@@ -18,11 +20,6 @@ function App() {
     const [projects, setProjects] = useState(getProjectsLocal("projects"));
     const [activeProject, setActiveProject] = useState(0);
     const [hasGoneToCreate, setHasGoneToCreate] = useState(false);
-    const [theme, setTheme] = useState(
-        localStorage.getItem("theme") === null
-            ? "light"
-            : localStorage.getItem("theme")
-    );
 
     const projectCreateHandler = project => {
         setProjects(prevProjects => {
@@ -69,62 +66,35 @@ function App() {
     };
 
     return (
-        <ThemeContext.Provider value={theme}>
-            <section
-                className={`${
-                    theme == "light" ? "bg-[#dddddd]" : "bg-[#181F25]"
-                }  w-screen h-screen transition`}
-            >
-                <SideMenu
-                    projects={projects}
-                    onProjectClick={changeActiveProject}
-                    onProjectCreateClick={changeActiveProject}
-                    onChangeTheme={() => {
-                        setTheme(() => {
-                            const newTheme =
-                                theme == "light" ? "dark" : "light";
-                            localStorage.setItem("theme", newTheme);
-                            return newTheme;
-                        });
-                    }}
-                />
-                <section className="flex flex-col justify-center items-center gap-3">
-                    {activeProject === -1 ? (
-                        <CreateProjectForm
-                            onProjectCreate={projectCreateHandler}
-                            hasLeftProject={hasGoneToCreate}
-                        />
-                    ) : projects.length > 0 ? (
-                        <ActiveProject
-                            onProjectRemove={projectRemoveHandler}
-                            onAddTask={addTaskHandler}
-                            onRemoveTask={removeTaskHandler}
-                            project={projects[activeProject]}
-                            hasLeftProject={hasGoneToCreate}
-                        />
-                    ) : (
-                        //   #202731
-                        <h1
-                            className={`font-bold mt-32 text-center ${
-                                theme == "light"
-                                    ? "bg-white text-black"
-                                    : "bg-[#202731] text-white"
-                            }  shadow rounded-3xl p-2 grid place-items-center animate-bottomMoveUp duration-[0.25s] transition-all ${
-                                hasGoneToCreate ? "translate-y-[100vh]" : ""
-                            }`}
-                        >
-                            You have not added any projects yet...{" "}
-                            <Button
-                                onClick={() => changeActiveProject(-1)}
-                                className="p-1 mt-3"
-                            >
-                                <p>Create Project</p>
-                            </Button>
-                        </h1>
-                    )}
-                </section>
+        <ThemeContextProvider>
+            <Background>
+            <SideMenu
+                projects={projects}
+                onProjectClick={changeActiveProject}
+                onProjectCreateClick={changeActiveProject}
+            />
+            <section className="flex flex-col justify-center items-center gap-3">
+                {activeProject === -1 ? (
+                    <CreateProjectForm
+                        onProjectCreate={projectCreateHandler}
+                        hasLeftProject={hasGoneToCreate}
+                    />
+                ) : projects.length > 0 ? (
+                    <ActiveProject
+                        onProjectRemove={projectRemoveHandler}
+                        onAddTask={addTaskHandler}
+                        onRemoveTask={removeTaskHandler}
+                        project={projects[activeProject]}
+                        hasLeftProject={hasGoneToCreate}
+                    />
+                ) : (
+                    //   #202731
+                    <EmptyProject hasGoneToCreate={hasGoneToCreate} changeActiveProject={changeActiveProject}/>
+                )}
+            
             </section>
-        </ThemeContext.Provider>
+            </Background>
+        </ThemeContextProvider>
     );
 }
 
