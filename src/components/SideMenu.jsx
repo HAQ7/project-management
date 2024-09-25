@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from 'react';
-import Light from './UI/Light.jsx';
 import { ThemeContext } from '../store/ThemeContext.jsx';
 
 export default function SideMenu({
@@ -18,7 +17,7 @@ export default function SideMenu({
     }
     if (window.innerWidth < 1280 && sideBarOpen) setSideBarOpen(false);
   };
-  // window.addEventListener('resize', checkWindowSize);
+  window.addEventListener('resize', checkWindowSize);
   if (!hasCheckWindowInStart.current) {
     hasCheckWindowInStart.current = true;
     checkWindowSize();
