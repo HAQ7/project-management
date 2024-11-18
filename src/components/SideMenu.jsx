@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 import { ThemeContext } from '../store/ThemeContext.jsx';
+import Light  from './UI/Light.jsx'
 
 export default function SideMenu({
   projects,
@@ -57,20 +58,20 @@ export default function SideMenu({
         onClick={changeSideBarState}
       />
       {/* /!*#19454B #00B9D2 ${useContext(ThemeContext) == 'light' ? "bg-gray-200" : "bg-[#181F25] "} */}
-      {/* ${
-          useContext(ThemeContext).theme == 'light'
-            ? 'from-[#19454B] to-[#00B9D2]'
-            : 'from-[#202731] to-[#181F25] '
-        } */}
+      
       <section
         className={`bg-gradient-to-b bg-white
-           
-         w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl duration-300 transition-all overflow-y-auto overflow-x-hidden ${
+          ${
+            useContext(ThemeContext).theme == 'light'
+              ? 'from-[#19454B] to-[#00B9D2]'
+              : 'from-[#202731] to-[#181F25] '
+          }     
+         w-72 ps-5 h-screen z-20 absolute top-0 rounded-e-3xl duration-300 text-white transition-all overflow-y-auto overflow-x-hidden ${
           sideBarOpen ? '' : 'translate-x-[-100%]'
-        }`}
+        } `}
       >
         <h1 className="font-bold text-3xl mt-[60px]">
-          <p><a href="./"><img src="./481-logo.svg" className='' alt="" /></a></p>
+          <p><a href="./"><img src="./481-logo-nobg.svg" className='' alt="" /></a></p>
           Projects{' '}
           <img className={`w-[20px] inline`} src="./project-white.svg" alt="" />
         </h1>
@@ -113,7 +114,7 @@ export default function SideMenu({
           Create Project
         </button>
       </section>
-      {/* <Light isSideBarOpen={sideBarOpen} /> */}
+      <Light isSideBarOpen={sideBarOpen} />
     </>
   );
 }
