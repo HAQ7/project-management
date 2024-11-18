@@ -12,7 +12,7 @@ export default defineConfig({
         short_name: "Project Management",
         description:
           "Project Management - Your go-to app for all your project needs.",
-        start_url: "",
+        start_url: "/project-management/",
         display: "standalone",
         background_color: "#dddddd",
         theme_color: "#38A7B6",
