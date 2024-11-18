@@ -25,6 +25,10 @@
   </head>
   <body class="overflow-hidden relative">
     <div id="root" class=""></div>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js'); 
+      }</script>
     <script type="module" src="src/main.jsx"></script>
   </body>
 </html>
