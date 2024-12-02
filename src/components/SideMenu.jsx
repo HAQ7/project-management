@@ -70,7 +70,7 @@ export default function SideMenu({
              sideBarOpen ? "" : "translate-x-[-100%]"
          } `}
             >
-                <h1 className="font-bold text-3xl mt-[60px]">
+                <h2 className="font-bold text-3xl mt-[60px]">
                     <p>
                         <a href="./">
                             <img
@@ -86,7 +86,7 @@ export default function SideMenu({
                         src="./project-white.svg"
                         alt=""
                     />
-                </h1>
+                </h2>
                 <input
                     onChange={e => {
                         setSearch(e.target.value);

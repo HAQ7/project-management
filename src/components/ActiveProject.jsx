@@ -1,7 +1,8 @@
-import {useContext, useRef, useState} from "react";
+import { useContext, useRef, useState } from "react";
 import Modal from "./Modal.jsx";
 import Button from "./UI/Button.jsx";
-import {ThemeContext} from "../store/ThemeContext.jsx";
+import { ThemeContext } from "../store/ThemeContext.jsx";
+import SEOMetadata from "./SEOMetaData";
 
 export default function ActiveProject({
   project,
@@ -15,7 +16,7 @@ export default function ActiveProject({
   const [hasDeletedProject, setHasDeletedProject] = useState(false);
   const taskInput = useRef();
   const modal = useRef();
-  const taskListSize = savedTasks.length > 0 ? savedTasks.length * 32 : 32
+  const taskListSize = savedTasks.length > 0 ? savedTasks.length * 32 : 32;
   const addTask = () => {
     if (taskInput.current.value.length < 1) {
       setIsInputEmpty(true);
@@ -36,8 +37,17 @@ export default function ActiveProject({
 
   return (
     <>
+      <SEOMetadata
+        projectName={project.name}
+        isProjectPage={true}
+        description={`Manage and track tasks for ${project.name}. View progress, deadlines, and team assignments.`}
+      />
       <section
-        className={`max-w-screen-sm w-screen ${useContext(ThemeContext).theme == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-300 transition-all overflow-hidden ${
+        className={`max-w-screen-sm w-screen ${
+          useContext(ThemeContext).theme == "light"
+            ? "bg-white text-black"
+            : "bg-[#202731] text-white"
+        } ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-300 transition-all overflow-hidden ${
           hasDeletedProject || hasLeftProject ? "-translate-y-full" : ""
         }`}
       >
@@ -55,7 +65,11 @@ export default function ActiveProject({
           {name}{" "}
           <img
             className={`w-[20px] inline`}
-            src={`./${useContext(ThemeContext).theme == 'light' ? "project.svg" : "project-white.svg" }`}
+            src={`./${
+              useContext(ThemeContext).theme == "light"
+                ? "project.svg"
+                : "project-white.svg"
+            }`}
             alt=""
           />
         </h1>
@@ -63,13 +77,21 @@ export default function ActiveProject({
         <p className={`font-medium`}>{description}</p>
       </section>
       <div
-        className={`max-w-screen-sm w-screen shadow rounded-3xl ${useContext(ThemeContext).theme == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } p-2 gap-1 flex justify-between animate-bottomMoveUp duration-300 transition-all ${
+        className={`max-w-screen-sm w-screen shadow rounded-3xl ${
+          useContext(ThemeContext).theme == "light"
+            ? "bg-white text-black"
+            : "bg-[#202731] text-white"
+        } p-2 gap-1 flex justify-between animate-bottomMoveUp duration-300 transition-all ${
           hasDeletedProject || hasLeftProject ? "translate-y-[100vh]" : ""
         }`}
       >
         <input
           ref={taskInput}
-          className={`${useContext(ThemeContext).theme == 'light' ? "bg-gray-200" : "bg-[#181F25] " } outline-0 h-14 w-full max-w-sm rounded-3xl p-2 duration-300 shadow-3xl ${
+          className={`${
+            useContext(ThemeContext).theme == "light"
+              ? "bg-gray-200"
+              : "bg-[#181F25] "
+          } outline-0 h-14 w-full max-w-sm rounded-3xl p-2 duration-300 shadow-3xl ${
             isInputEmpty ? `border border-red-700 animate-shake` : ""
           }`}
           type="text"
@@ -80,25 +102,41 @@ export default function ActiveProject({
         </Button>
       </div>
       <section
-        className={`max-w-screen-sm  w-screen shadow rounded-3xl ${useContext(ThemeContext).theme == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } p-5 animate-bottomMoveUp duration-300 transition-all ${
+        className={`max-w-screen-sm  w-screen shadow rounded-3xl ${
+          useContext(ThemeContext).theme == "light"
+            ? "bg-white text-black"
+            : "bg-[#202731] text-white"
+        } p-5 animate-bottomMoveUp duration-300 transition-all ${
           hasDeletedProject || hasLeftProject ? "translate-y-[100vh]" : ""
         }`}
       >
-        <h1 className={`font-bold text-4xl`}>
+        <h2 className={`font-bold text-4xl`}>
           Tasks{" "}
           <img
             className={`w-[20px] inline`}
-            src={`./${useContext(ThemeContext).theme == 'light' ? "list.svg" : "list-white.svg" }`}
+            src={`./${
+              useContext(ThemeContext).theme == "light"
+                ? "list.svg"
+                : "list-white.svg"
+            }`}
             alt=""
           />
-        </h1>
-        <ul className={`m-2 max-h-52 ${taskListSize < 208 ? `overflow-y-hidden` : `overflow-y-auto`} overflow-x-hidden transition-all duration-300`} style={{
-          height: `${taskListSize}px`
-        }}>
-          {savedTasks.length === 0 && <h1>You have not added any tasks...</h1>}
+        </h2>
+        <ul
+          className={`m-2 max-h-52 ${
+            taskListSize < 208 ? `overflow-y-hidden` : `overflow-y-auto`
+          } overflow-x-hidden transition-all duration-300`}
+          style={{
+            height: `${taskListSize}px`,
+          }}
+        >
+          {savedTasks.length === 0 && <p>You have not added any tasks...</p>}
           {savedTasks.map((task, index) => (
-            <li className={`relative opacity-0 animate-opacityWithDelay mt-2 flex flex-row justify-between`} key={index}>
-              <span className={'overflow-hidden'}>{task}</span>
+            <li
+              className={`relative opacity-0 animate-opacityWithDelay mt-2 flex flex-row justify-between`}
+              key={index}
+            >
+              <span className={"overflow-hidden"}>{task}</span>
               <span
                 onClick={() => onRemoveTask(index)}
                 className="cursor-pointer font-bold"
