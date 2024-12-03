@@ -2,6 +2,7 @@ import {useContext, useRef, useState} from "react";
 import Modal from "./Modal.jsx";
 import Button from "./UI/Button.jsx";
 import {ThemeContext} from "../store/ThemeContext.jsx";
+import Alert from "./Alert.jsx";
 
 export default function ActiveProject({
   project,
@@ -9,6 +10,14 @@ export default function ActiveProject({
   onRemoveTask,
   onProjectRemove,
   hasLeftProject,
+  setAlert,
+  alert,
+  setAlertType,
+  alertType,
+  setMessage,
+  message,
+  setSuccess,
+  success,
 }) {
   const { name, description, date, savedTasks } = project;
   const [isInputEmpty, setIsInputEmpty] = useState(false);
@@ -19,15 +28,37 @@ export default function ActiveProject({
   const addTask = () => {
     if (taskInput.current.value.length < 1) {
       setIsInputEmpty(true);
+      setAlert(true);
+      setMessage("please type at least one character");
+      setAlertType("error");
+      setTimeout(() => {
+        setAlert(false);
+      }, 2000);
       return;
     }
     onAddTask(taskInput.current.value);
     taskInput.current.value = "";
     setIsInputEmpty(false);
+    setSuccess(true);
+    setAlert(true);
+    setAlertType("success")
+    setMessage("Task added successfully!");
+    setTimeout(() => {
+      setAlert(false);
+      setSuccess(false);
+    }, 2000);
   };
 
   const deleteProject = () => {
     setHasDeletedProject(true);
+    setSuccess(true);
+    setAlert(true);
+    setAlertType("success")
+    setMessage("Project deleted successfully");
+    setTimeout(() => {
+      setAlert(false);
+      setSuccess(false);
+    }, 2000);
     setTimeout(() => {
       onProjectRemove();
       setHasDeletedProject(false);
@@ -36,6 +67,9 @@ export default function ActiveProject({
 
   return (
     <>
+    {alert && <Alert message={message} type={alertType}
+    className="absolute lg:bottom-4 lg:left-4 top-0 z-50"
+    ></Alert>}
       <section
         className={`max-w-screen-sm w-screen ${useContext(ThemeContext).theme == 'light' ? "bg-white text-black" : "bg-[#202731] text-white" } ps-5 pe-5 pb-5 rounded-b-3xl shadow relative animate-topMoveDown duration-300 transition-all overflow-hidden ${
           hasDeletedProject || hasLeftProject ? "-translate-y-full" : ""
