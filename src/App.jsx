@@ -67,7 +67,7 @@ function App() {
     setSuccess(true);
     setAlert(true);
     setAlertType("success");
-    setMessage("Task removed successfully!");
+    setMessage("Task deleted successfully!");
     setTimeout(() => {
       setAlert(false);
       setSuccess(false);

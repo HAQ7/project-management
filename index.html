@@ -2,7 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" sizes="128x128" href="/481-logo-removebg.png" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      sizes="128x128"
+      href="/481-logo-removebg.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       property="og:title"
@@ -13,8 +18,14 @@
       content="Streamline your workflow with our project management tool. Add projects, assign tasks, and track progress effortlessly."
     />
     <meta property="og:type" content="website" />
-    <meta name="description" content="Manage your projects effectively. Add projects, assign tasks, and track progress effortlessly.">
-    <meta name="keywords" content="Project Management, Task Management, Productivity, Organize Projects, Add Tasks, Add Projects">
+    <meta
+      name="description"
+      content="Manage your projects effectively. Add projects, assign tasks, and track progress effortlessly."
+    />
+    <meta
+      name="keywords"
+      content="Project Management, Task Management, Productivity, Organize Projects, Add Tasks, Add Projects"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,13 +33,28 @@
       rel="stylesheet"
     />
     <title>Project Manager</title>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PM2YMR6RQG"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PM2YMR6RQG");
+    </script>
   </head>
   <body class="overflow-hidden relative">
     <div id="root" class=""></div>
     <script>
-      if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js'); 
-      }</script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
     <script type="module" src="src/main.jsx"></script>
   </body>
 </html>
