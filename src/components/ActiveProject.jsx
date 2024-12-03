@@ -74,7 +74,7 @@ export default function ActiveProject({
         description={`Manage and track tasks for ${project.name}. View progress, deadlines, and team assignments.`}
       />
     {alert && <Alert message={message} type={alertType}
-    className="absolute lg:bottom-4 lg:left-4 top-0 z-50"
+    className="absolute  top-2  z-50 "
     ></Alert>}
       <section
         className={`max-w-screen-sm w-screen ${
